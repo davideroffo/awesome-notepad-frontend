@@ -49,7 +49,7 @@ const Notepad = () => {
               disabled={!note}
             >
               {isLoading ? (
-                <div class="spinner-border text-light" role="status" />
+                <div className="spinner-border text-light" role="status" />
               ) : (
                 <p>Save</p>
               )}

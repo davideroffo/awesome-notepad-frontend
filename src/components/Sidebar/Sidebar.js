@@ -44,7 +44,7 @@ const Sidebar = () => {
         onClick={handleAddNote}
       >
         {isLoading ? (
-          <div class="spinner-border text-info" role="status" />
+          <div className="spinner-border text-info" role="status" />
         ) : (
           <p>+ Add Note</p>
         )}
