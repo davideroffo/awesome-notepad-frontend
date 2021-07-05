@@ -3,6 +3,7 @@ import { Context as NotesContext } from "../../context/NotesContext";
 
 const Notepad = () => {
   const { state: notes, saveNote } = useContext(NotesContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [note, setNote] = useState(null);
 
   useEffect(() => {
@@ -16,8 +17,11 @@ const Notepad = () => {
   };
 
   const handleSaveNote = (event) => {
+    setIsLoading(true);
     event.preventDefault();
-    saveNote(note);
+    saveNote(note).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -44,7 +48,11 @@ const Notepad = () => {
               type="submit"
               disabled={!note}
             >
-              Save
+              {isLoading ? (
+                <div class="spinner-border text-light" role="status" />
+              ) : (
+                <p>Save</p>
+              )}
             </button>
           </div>
         </div>

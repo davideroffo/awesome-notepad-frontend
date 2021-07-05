@@ -1,14 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context as NotesContext } from "../../context/NotesContext";
 import "./Sidebar.css";
 
 const Sidebar = () => {
   const { state: notes, addNote, selectNote } = useContext(NotesContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddNote = () => {
+    setIsLoading(true);
     addNote({
       id: "12345",
       body: "New note",
+    }).finally(() => {
+      setIsLoading(false);
     });
   };
 
@@ -39,7 +43,11 @@ const Sidebar = () => {
         className="btn btn-primary btn-block my-1"
         onClick={handleAddNote}
       >
-        + Add note
+        {isLoading ? (
+          <div class="spinner-border text-info" role="status" />
+        ) : (
+          <p>+ Add Note</p>
+        )}
       </button>
       {notes.length === 0 ? (
         <p>No notes available.</p>
